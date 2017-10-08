@@ -1,45 +1,8 @@
 #coding=utf-8
-import nltk
-import pdf_extraction
-import wmd_utility as utility
+
 import openie.open_ie_api as openie
-
-ambiguity_elements = ['In', 'As']
-
-def nltk_tokenize(string):
-    tokens = nltk.word_tokenize(string)
-    return tokens
-
-def nltk_tokenize_2(string):
-    all_tokens = []
-    s_list = string.strip().split('.')
-    for s in s_list:
-        tokens = nltk.word_tokenize(s)
-        all_tokens.extend(tokens)
-    return all_tokens
-
-def load_paper_content(filepath):
-    content = pdf_extraction.extract_content(filepath)
-    return content
-
-def term_frequent(section_list):
-    term_dict = {}
-    for section in section_list:
-        tokens = nltk_tokenize_2(section)
-        for token in tokens:
-            if token not in term_dict:
-                term_dict[token] = 1
-            else:
-                term_dict[token] += 1
-    return term_dict
-
-def load_chemical_elements(filepath = '../model/chemical_element.txt'):
-    chemical_element_set = set()
-    fr = open(filepath)
-    for line in fr.readlines():
-        element = line.strip()
-        chemical_element_set.add(element)
-    return chemical_element_set
+import wmd
+from src.backup import wmd_utility as utility
 
 def get_material_name(term_dict):
     material_list = []
@@ -78,7 +41,7 @@ def get_material_name(term_dict):
     return topic_material
 
 #get prepare method
-def get_prepare_method():
+def get_prepare_method(content):
     query = ['prepared']
     related = utility.rwmd(query, content)
     if related != []:
@@ -87,8 +50,6 @@ def get_prepare_method():
         for t in openie_res: 
             if 'prepared' in t[1] and len(t[2]) > len(r):
                 r = t[2]
-        return r
-    else:
         return r
 
 def extract(filepath):
@@ -99,9 +60,11 @@ def extract(filepath):
     print topic_material
     #get prepare method
 
+
+
 def main():
     filepath = '../data/material.pdf'
     extract(filepath)
 
 if __name__=='__main__':
-    main()
+    infoExtract = InforExtract()
