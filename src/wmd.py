@@ -85,7 +85,7 @@ class WMD(object):
             word_vec_list.append(sentence_word_vec_list)
         return word_weight_list, word_vec_list
 
-    def rwmd(self, querys, candidates, threshold = 0.75):
+    def rwmd(self, querys, candidates, threshold = 0.8):
         query_weight_list ,query_vec_list = self.get_sentence_vec(querys)
         candidate_weight_list, candidate_vec_list = self.get_sentence_vec(candidates)
         q_len = len(querys)

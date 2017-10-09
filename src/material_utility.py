@@ -4,5 +4,5 @@ def load_chemical_elements(filepath = '../model/chemical_element.txt'):
     fr = open(filepath)
     for line in fr.readlines():
         element = line.strip()
-        chemical_element_set.add(element)
+        chemical_element_set.add(element.lower())
     return chemical_element_set

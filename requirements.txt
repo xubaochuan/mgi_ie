@@ -1,3 +1,4 @@
 nltk==3.2.5
 pdfminer==20140328
 scikit-learn==0.18.1
+pymysql==0.7.11
